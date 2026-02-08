@@ -1,12 +1,18 @@
 import React, { useState } from 'react';
 import { View, Text, StyleSheet, TouchableOpacity } from 'react-native';
-import { SPACING, COLORS } from '../utils/styleUtils';
+import { SPACING, COLORS, DIMENSIONS } from '../utils/styleUtils';
 
 interface HotbarProps {
   slotCount?: number;
   onSlotSelect?: (slot: number) => void;
   selectedSlot?: number;
 }
+
+// Calculate the half width of the hotbar container for centering
+// Formula: (slotSize * slotCount) + (marginHorizontal * 2 * slotCount)
+const calculateHotbarHalfWidth = (slotCount: number): number => {
+  return ((DIMENSIONS.hotbarSlotSize * slotCount) + (SPACING.xs * 2 * slotCount)) / 2;
+};
 
 export default function Hotbar({ 
   slotCount = 10, 
@@ -25,8 +31,10 @@ export default function Hotbar({
     onSlotSelect?.(slot);
   };
 
+  const hotbarHalfWidth = calculateHotbarHalfWidth(slotCount);
+
   return (
-    <View style={styles.container}>
+    <View style={[styles.container, { marginRight: -hotbarHalfWidth }]}>
       {Array.from({ length: slotCount }, (_, i) => i + 1).map(item => (
         <TouchableOpacity
           key={item}
@@ -45,12 +53,11 @@ const styles = StyleSheet.create({
     position: 'absolute',
     bottom: SPACING.xl,
     right: '50%',
-    marginRight: -175, // Half of the container width
     flexDirection: 'row',
   },
   box: {
-    width: 30,
-    height: 30,
+    width: DIMENSIONS.hotbarSlotSize,
+    height: DIMENSIONS.hotbarSlotSize,
     borderWidth: 1,
     borderColor: COLORS.white,
     justifyContent: 'center',

@@ -1,5 +1,5 @@
 import React from 'react';
-import { View, StyleSheet, ViewStyle } from 'react-native';
+import { View, StyleSheet, ViewStyle, DimensionValue } from 'react-native';
 import { calculateBarWidth, DEFAULT_BAR_BACKGROUND } from '../utils/barUtils';
 import { BORDER_RADIUS } from '../utils/styleUtils';
 
@@ -25,7 +25,7 @@ export default function ProgressBar({
   borderRadius = BORDER_RADIUS.medium,
   style,
 }: ProgressBarProps) {
-  const width = calculateBarWidth(current, max);
+  const width = calculateBarWidth(current, max) as DimensionValue;
 
   return (
     <View style={[styles.container, { height, backgroundColor, borderRadius }, style]}>

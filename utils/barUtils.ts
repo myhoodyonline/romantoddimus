@@ -23,13 +23,14 @@ export function calculateBarWidth(current: number, max: number): string {
 
 /**
  * Get standard bar colors for common game stats
+ * Using hex codes for consistent theming
  */
 export const BAR_COLORS = {
-  health: 'red',
-  shield: 'silver',
-  energy: 'green',
-  experience: 'blue',
-  mana: 'cyan',
+  health: '#FF0000',    // Red
+  shield: '#C0C0C0',    // Silver
+  energy: '#00FF00',    // Green
+  experience: '#0000FF', // Blue
+  mana: '#00FFFF',      // Cyan
 } as const;
 
 /**

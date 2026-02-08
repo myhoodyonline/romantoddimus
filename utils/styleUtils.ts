@@ -27,10 +27,19 @@ export const SPACING = {
  * Standard colors for game UI
  */
 export const COLORS = {
-  white: 'white',
-  black: 'black',
+  white: '#FFFFFF',
+  black: '#000000',
   transparent: 'transparent',
-  selected: 'yellow',
+  selected: '#FFFF00',
   selectedBackground: 'rgba(255, 255, 0, 0.3)',
   overlay: 'rgba(0,0,0,0.5)',
+} as const;
+
+/**
+ * Standard dimensions for game UI elements
+ */
+export const DIMENSIONS = {
+  barWidth: 100,
+  hotbarSlotSize: 30,
+  avatarSize: 50,
 } as const;

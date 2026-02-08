@@ -2,7 +2,7 @@ import React from 'react';
 import { View, Text, StyleSheet, Image } from 'react-native';
 import ProgressBar from './ProgressBar';
 import { BAR_COLORS } from '../utils/barUtils';
-import { BORDER_RADIUS, SPACING, COLORS } from '../utils/styleUtils';
+import { BORDER_RADIUS, SPACING, COLORS, DIMENSIONS } from '../utils/styleUtils';
 
 interface PlayerProfileProps {
   username?: string;
@@ -13,6 +13,7 @@ interface PlayerProfileProps {
   maxShield?: number;
   energy?: number;
   maxEnergy?: number;
+  barWidth?: number;
 }
 
 export default function PlayerProfile({
@@ -24,6 +25,7 @@ export default function PlayerProfile({
   maxShield = 100,
   energy = 100,
   maxEnergy = 100,
+  barWidth = DIMENSIONS.barWidth,
 }: PlayerProfileProps) {
   return (
     <View style={styles.container}>
@@ -37,7 +39,7 @@ export default function PlayerProfile({
             color={BAR_COLORS.health}
             height={8}
             borderRadius={BORDER_RADIUS.small}
-            style={styles.bar}
+            style={[styles.bar, { width: barWidth }]}
           />
           <ProgressBar
             current={shield}
@@ -45,7 +47,7 @@ export default function PlayerProfile({
             color={BAR_COLORS.shield}
             height={8}
             borderRadius={BORDER_RADIUS.small}
-            style={styles.bar}
+            style={[styles.bar, { width: barWidth }]}
           />
           <ProgressBar
             current={energy}
@@ -53,7 +55,7 @@ export default function PlayerProfile({
             color={BAR_COLORS.energy}
             height={8}
             borderRadius={BORDER_RADIUS.small}
-            style={styles.bar}
+            style={[styles.bar, { width: barWidth }]}
           />
         </View>
       </View>
@@ -70,8 +72,8 @@ const styles = StyleSheet.create({
     borderRadius: BORDER_RADIUS.large,
   },
   avatar: {
-    width: 50,
-    height: 50,
+    width: DIMENSIONS.avatarSize,
+    height: DIMENSIONS.avatarSize,
     borderRadius: BORDER_RADIUS.circle,
     marginRight: SPACING.lg,
   },
@@ -87,7 +89,6 @@ const styles = StyleSheet.create({
     flexDirection: 'column',
   },
   bar: {
-    width: 100,
     marginBottom: SPACING.sm,
   },
 });
