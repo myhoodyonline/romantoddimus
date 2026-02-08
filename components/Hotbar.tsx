@@ -1,16 +1,37 @@
 import React, { useState } from 'react';
 import { View, Text, StyleSheet, TouchableOpacity } from 'react-native';
+import { SPACING, COLORS } from '../utils/styleUtils';
 
-export default function Hotbar() {
-  const [selected, setSelected] = useState(-1);
+interface HotbarProps {
+  slotCount?: number;
+  onSlotSelect?: (slot: number) => void;
+  selectedSlot?: number;
+}
+
+export default function Hotbar({ 
+  slotCount = 10, 
+  onSlotSelect,
+  selectedSlot: controlledSelected,
+}: HotbarProps) {
+  const [internalSelected, setInternalSelected] = useState(-1);
+  
+  // Use controlled selection if provided, otherwise use internal state
+  const selected = controlledSelected !== undefined ? controlledSelected : internalSelected;
+  
+  const handleSelect = (slot: number) => {
+    if (controlledSelected === undefined) {
+      setInternalSelected(slot);
+    }
+    onSlotSelect?.(slot);
+  };
 
   return (
     <View style={styles.container}>
-      {Array.from({ length: 10 }, (_, i) => i + 1).map(item => (
+      {Array.from({ length: slotCount }, (_, i) => i + 1).map(item => (
         <TouchableOpacity
           key={item}
           style={[styles.box, selected === item && styles.selectedBox]}
-          onPress={() => setSelected(item)}
+          onPress={() => handleSelect(item)}
         >
           <Text style={styles.number}>{item}</Text>
         </TouchableOpacity>
@@ -22,7 +43,7 @@ export default function Hotbar() {
 const styles = StyleSheet.create({
   container: {
     position: 'absolute',
-    bottom: 20,
+    bottom: SPACING.xl,
     right: '50%',
     marginRight: -175, // Half of the container width
     flexDirection: 'row',
@@ -31,17 +52,17 @@ const styles = StyleSheet.create({
     width: 30,
     height: 30,
     borderWidth: 1,
-    borderColor: 'white',
+    borderColor: COLORS.white,
     justifyContent: 'center',
     alignItems: 'center',
-    marginHorizontal: 2,
+    marginHorizontal: SPACING.xs,
   },
   selectedBox: {
-    borderColor: 'yellow',
-    backgroundColor: 'rgba(255, 255, 0, 0.3)',
+    borderColor: COLORS.selected,
+    backgroundColor: COLORS.selectedBackground,
   },
   number: {
-    color: 'white',
+    color: COLORS.white,
     fontSize: 12,
   },
 });
