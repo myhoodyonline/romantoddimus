@@ -1,11 +1,21 @@
 import React from 'react';
-import { View, StyleSheet } from 'react-native';
+import { StyleSheet } from 'react-native';
+import ProgressBar from './ProgressBar';
+import { BAR_COLORS } from '../utils/barUtils';
 
-export default function ExperienceBar() {
+interface ExperienceBarProps {
+  current?: number;
+  max?: number;
+}
+
+export default function ExperienceBar({ current = 50, max = 100 }: ExperienceBarProps) {
   return (
-    <View style={styles.container}>
-      <View style={styles.bar} />
-    </View>
+    <ProgressBar
+      current={current}
+      max={max}
+      color={BAR_COLORS.experience}
+      style={styles.container}
+    />
   );
 }
 
@@ -15,13 +25,5 @@ const styles = StyleSheet.create({
     bottom: 0,
     left: 0,
     right: 0,
-    height: 10,
-    backgroundColor: 'rgba(0,0,0,0.5)',
-  },
-  bar: {
-    height: '100%',
-    width: '50%', // Example of 50% experience
-    backgroundColor: 'blue',
-    borderRadius: 5,
   },
 });
